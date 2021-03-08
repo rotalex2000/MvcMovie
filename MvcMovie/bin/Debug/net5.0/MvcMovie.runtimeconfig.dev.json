@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\rotal\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\rotal\\.nuget\\packages"
+    ]
+  }
+}
