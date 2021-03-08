@@ -15,6 +15,24 @@ namespace MvcMovie.Controllers
 
         static List<Movie> movies = new List<Movie>();
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                movie.Id = Guid.NewGuid();
+                movies.Add(movie);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movie);
+        }
+
         public IActionResult Index()
         {
             return View(movies);
@@ -33,25 +51,6 @@ namespace MvcMovie.Controllers
                 return NotFound();
             }
 
-            return View(movie);
-        }
-
-        // GET: Movies/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
-        {
-            if (ModelState.IsValid)
-            {
-                movie.Id = Guid.NewGuid();
-                movies.Add(movie);
-                return RedirectToAction(nameof(Index));
-            }
             return View(movie);
         }
 
@@ -93,7 +92,6 @@ namespace MvcMovie.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Delete/5
         public IActionResult Delete(Guid? id)
         {
             if (id == null)
